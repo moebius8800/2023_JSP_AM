@@ -29,4 +29,14 @@
     <servlet-name>ArticleListServlet</servlet-name>
     <url-pattern>/ArticleListServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ArticleDoDeleteServlet</display-name>
+    <servlet-name>ArticleDoDeleteServlet</servlet-name>
+    <servlet-class>com.koreaIT.java.am.ArticleDoDeleteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ArticleDoDeleteServlet</servlet-name>
+    <url-pattern>/ArticleDoDeleteServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

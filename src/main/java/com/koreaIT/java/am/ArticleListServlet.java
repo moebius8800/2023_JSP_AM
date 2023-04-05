@@ -32,9 +32,7 @@ public class ArticleListServlet extends HttpServlet {
 
 			conn = DriverManager.getConnection(url, "root", "");
 			
-			SecSql sql = new SecSql();
-
-			sql.append("SELECT * FROM article");
+			SecSql sql = SecSql.from("SELECT * FROM article");
 			sql.append("ORDER BY id DESC");
 			
 			List<Map<String, Object>> articleListMap = DBUtil.selectRows(conn, sql);

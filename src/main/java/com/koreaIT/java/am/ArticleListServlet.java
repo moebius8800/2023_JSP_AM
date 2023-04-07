@@ -44,6 +44,16 @@ public class ArticleListServlet extends HttpServlet {
 			int totalCount =  DBUtil.selectRowIntValue(conn, sql);
 			int totalPage = (int) Math.ceil((double) totalCount / itemsInAPage);
 			
+			int pageSize = 5;
+			int from = page - pageSize;
+			if (from < 1) {
+				from = 1;
+			}
+			int end = page + pageSize;
+			if (end > totalPage) {
+				end = totalPage;
+			}
+			
 			sql = SecSql.from("SELECT * FROM article");
 			sql.append("ORDER BY id DESC");
 			sql.append("LIMIT ?, ?", limitFrom, itemsInAPage);
@@ -51,6 +61,8 @@ public class ArticleListServlet extends HttpServlet {
 			List<Map<String, Object>> articleListMap = DBUtil.selectRows(conn, sql);
 			
 			request.setAttribute("page", page);
+			request.setAttribute("from", from);
+			request.setAttribute("end", end);
 			request.setAttribute("totalPage", totalPage);
 			request.setAttribute("articleListMap", articleListMap);
 			

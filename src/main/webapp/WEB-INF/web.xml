@@ -39,4 +39,14 @@
     <servlet-name>ArticleDoDeleteServlet</servlet-name>
     <url-pattern>/ArticleDoDeleteServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>qewrqrer</display-name>
+    <servlet-name>qewrqrer</servlet-name>
+    <servlet-class>com.koreaIT.java.am.qewrqrer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>qewrqrer</servlet-name>
+    <url-pattern>/qewrqrer</url-pattern>
+  </servlet-mapping>
 </web-app>

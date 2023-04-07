@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Map;
 
 import com.koreaIT.java.am.util.DBUtil;
@@ -16,8 +15,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/article/list")
-public class ArticleListServlet extends HttpServlet {
+@WebServlet("/article/modify")
+public class ArticleModifyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,31 +29,16 @@ public class ArticleListServlet extends HttpServlet {
 
 			conn = DriverManager.getConnection(url, "root", "");
 			
-			int page = 1;
-			if (request.getParameter("page") != null && request.getParameter("page").length() != 0) {
-				page = Integer.parseInt(request.getParameter("page"));
-			}
+			int id = Integer.parseInt(request.getParameter("id"));
 			
-			int itemsInAPage = 10;
+			SecSql sql = SecSql.from("SELECT * FROM article");
+			sql.append("WHERE id = ?", id);
 			
-			int limitFrom = (page - 1) * itemsInAPage;
+			Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
 			
-			SecSql sql = SecSql.from("SELECT COUNT(*) FROM article");
+			request.setAttribute("articleRow", articleRow);
 			
-			int totalCount =  DBUtil.selectRowIntValue(conn, sql);
-			int totalPage = (int) Math.ceil((double) totalCount / itemsInAPage);
-			
-			sql = SecSql.from("SELECT * FROM article");
-			sql.append("ORDER BY id DESC");
-			sql.append("LIMIT ?, ?", limitFrom, itemsInAPage);
-			
-			List<Map<String, Object>> articleListMap = DBUtil.selectRows(conn, sql);
-			
-			request.setAttribute("page", page);
-			request.setAttribute("totalPage", totalPage);
-			request.setAttribute("articleListMap", articleListMap);
-			
-			request.getRequestDispatcher("/jsp/article/list.jsp").forward(request, response);
+			request.getRequestDispatcher("/jsp/article/modify.jsp").forward(request, response);
 			
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패");

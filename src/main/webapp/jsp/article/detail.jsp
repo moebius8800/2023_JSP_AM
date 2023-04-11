@@ -18,6 +18,7 @@
 	
 	<div>번호 : <%= (int) articleRow.get("id") %></div>
 	<div>날짜 : <%= (LocalDateTime) articleRow.get("regDate") %></div>
+	<div>작성자 : <%= (String) articleRow.get("writerName") %></div>
 	<div>제목 : <%= (String) articleRow.get("title") %></div>
 	<div>내용 : <%= (String) articleRow.get("body") %></div>
 	<div>
@@ -27,4 +28,5 @@
 	</div>
 </body>
 </html>
+
 
